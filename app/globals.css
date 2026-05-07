@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 640px;
+  --breakpoint-lg: 770px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-2xl: 1500px;
+
+  --font-family-inter: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --text-2xl: 3.2rem;
+  --text-xl: 2.5rem;
+  --text-md: 1.313rem;
+  --text-normal: 1.2rem;
+  --text-sm: 0.938rem;
+  --text-xs: 0.875rem;
+
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-background: #08090a;
+  --color-button: rgb(230, 230, 230);
+  --color-button-background: rgb(40, 40, 44);
+  --color-bg-translucent: hsla(0, 0%, 100%, 0.05);
+  --color-bg-card: #0e0f10;
+  --color-text-green: rgb(104, 204, 88);
+  --color-text-orange: rgb(242, 153, 74);
+  --color-text-red: rgb(197, 40, 40);
+  --color-text-white: #fff;
+  --color-text-tertiary: rgb(208, 214, 224);
+  --color-text-primary: rgb(247, 248, 248);
+  --color-text-subtitle: rgba(255, 255, 255, 0.7);
+  --color-text-secondary: rgb(138, 143, 152);
+  --color-text-black: rgb(8, 9, 10);
+  --color-text-decoration: rgb(138, 143, 152);
+  --color-border: rgb(35, 37, 42);
+  --color-bg-quinary: #282828;
+
+  --spacing-0: 0;
+  --spacing-1: 0.4rem;
+  --spacing-2: 0.8rem;
+  --spacing-3: 1.2rem;
+  --spacing-4: 1.6rem;
+  --spacing-5: 2rem;
+  --spacing-6: 2.4rem;
+  --spacing-7: 2.8rem;
+  --spacing-8: 3.2rem;
+  --spacing-9: 3.6rem;
+  --spacing-10: 4rem;
+}
+
+@layer components {
+  h1 {
+    @apply text-[2.5rem] leading-[3rem] md:text-[3.2rem] md:leading-[3.75rem] tracking-tighter text-[var(--color-text-primary)] font-medium;
+  }
+
+  .space-container {
+    @apply max-w-[59rem] mx-auto px-6;
+  }
+
+  .section-container {
+    @apply max-w-[59rem] mx-auto px-6 py-20;
+  }
+
+  .button-primary {
+    @apply bg-[var(--color-button)] text-[var(--color-background)] px-3 py-1.5 text-xs font-medium rounded-[10px] transition-all cursor-pointer tracking-normal hover:bg-white;
+  }
+
+  .button-secondary {
+    @apply text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer;
+  }
+
+  .section-label {
+    @apply text-[0.7rem] font-semibold tracking-[0.15em] uppercase text-[var(--color-text-secondary)] mb-3;
+  }
+
+  .card {
+    @apply border border-[var(--color-border)] rounded-xl bg-[var(--color-bg-card)] p-5 transition-colors hover:border-[rgb(55,57,65)];
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(to right, #fff, var(--color-text-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+body {
+  font-family: var(--font-family-inter);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hide-scroll-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.12);
+}

@@ -89,15 +89,12 @@ function ProjectCard({
       transition={{ type: "tween" as const, ease: "easeOut" as const, duration: 0.45 }}
       className="flex-shrink-0"
     >
-      {/* matches: backdrop-contrast-200 bg-container-background border-bg-translucent border-1 rounded-xl group px-4 py-4 */}
       <button
         onClick={onOpen}
         className="group border border-[hsla(0,0%,100%,0.05)] bg-[#141516] rounded-xl px-4 py-4 text-left transition-colors hover:bg-[#1a1b1c]"
       >
-        {/* matches: <div className="w-65"> */}
         <div className="w-[260px]">
 
-          {/* matches: <img className="w-full duration-300 group-hover:shadow-lg group-hover:brightness-150" /> */}
           <div className="w-full mb-3 overflow-hidden rounded-lg">
             {project.logo ? (
               <Image
@@ -180,26 +177,26 @@ function ProjectModal({
         exit={{ opacity: 0, scale: 0.96, y: 20 }}
         transition={{ type: "tween" as const, ease: "easeOut" as const, duration: 0.25 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] rounded-2xl overflow-hidden"
+        className="relative w-full max-w-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] rounded-2xl overflow-hidden max-h-[88vh] flex flex-col"
       >
         {/* colored top stripe */}
         <div
-          className="h-[3px] w-full"
+          className="h-[3px] w-full flex-shrink-0"
           style={{ background: `linear-gradient(to right, ${accent}, transparent)` }}
         />
 
-        <div className="p-6">
+        <div className="p-6 overflow-y-auto">
           {/* close */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 w-7 h-7 flex items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[rgb(55,57,65)] transition-colors"
+            className="absolute top-5 right-5 w-7 h-7 flex items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[rgb(55,57,65)] transition-colors z-10"
           >
             <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
               <path d="M1 1l10 10M11 1L1 11" />
             </svg>
           </button>
 
-          {/* logo + title */}
+          {/* logo + title + platform badges */}
           <div className="flex items-center gap-3 mb-4 pr-8">
             {project.logo ? (
               <Image
@@ -221,31 +218,25 @@ function ProjectModal({
               <h3 className="text-base font-semibold text-[var(--color-text-primary)] tracking-tight">
                 {project.name}
               </h3>
-              <span className="text-[0.7rem] text-[var(--color-text-secondary)]">
-                {project.tagline}
-              </span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[0.7rem] text-[var(--color-text-secondary)]">
+                  {project.tagline}
+                </span>
+                {"platforms" in project && project.platforms && project.platforms.map((p) => (
+                  <span
+                    key={p}
+                    className="text-[0.55rem] px-1.5 py-0.5 rounded border font-medium tracking-wide uppercase"
+                    style={{ borderColor: `${accent}40`, color: accent, background: `${accent}10` }}
+                  >
+                    {p}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* full description */}
-          <p className="text-sm text-[var(--color-text-secondary)] leading-[1.7] mb-5">
-            {project.desc}
-          </p>
-
-          {/* tech pills */}
-          <div className="flex flex-wrap gap-1.5 mb-6">
-            {project.tech.map((t) => (
-              <span
-                key={t}
-                className="text-[0.65rem] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)]"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
-          {/* links */}
-          <div className="flex gap-3 pt-4 border-t border-[var(--color-border)]">
+          {/* links — top so recruiter never has to scroll */}
+          <div className="flex flex-wrap gap-3 mb-5">
             {project.live && project.live !== "#" && (
               <a
                 href={project.live}
@@ -253,7 +244,17 @@ function ProjectModal({
                 rel="noopener noreferrer"
                 className="button-primary text-xs"
               >
-                View live →
+                Web Demo →
+              </a>
+            )}
+            {"mobile" in project && project.mobile && (
+              <a
+                href={project.mobile as string}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button-secondary border border-[var(--color-border)] rounded-[10px] px-3 py-1.5 text-xs hover:border-[rgb(55,57,65)] transition-colors"
+              >
+                Mobile Build →
               </a>
             )}
             {project.gh && project.gh !== "#" && (
@@ -267,6 +268,72 @@ function ProjectModal({
               </a>
             )}
           </div>
+
+          {/* optional image strip */}
+          {"images" in project && project.images && project.images.length > 0 && (
+            <div className="flex gap-2 overflow-x-auto pb-2 mb-4 hide-scroll-bar">
+              {project.images.map((src, i) => (
+                <Image
+                  key={i}
+                  src={src}
+                  alt={`${project.name} screenshot ${i + 1}`}
+                  width={110}
+                  height={200}
+                  className="flex-shrink-0 rounded-lg object-cover h-[200px] w-[110px]"
+                />
+              ))}
+            </div>
+          )}
+
+          {/* optional video */}
+          {"video" in project && project.video && (
+            <div className="mb-5 rounded-lg overflow-hidden">
+              <video src={project.video} controls playsInline className="w-full max-h-[220px] rounded-lg" />
+            </div>
+          )}
+
+          {/* description — each \n\n becomes its own paragraph */}
+          <div className="mb-5 flex flex-col gap-3">
+            {project.desc.split("\n\n").map((para, i) => (
+              <p key={i} className="text-sm text-[var(--color-text-secondary)] leading-[1.7]">
+                {para}
+              </p>
+            ))}
+          </div>
+
+          {/* tech — grouped (developer-scannable) or flat pills */}
+          {"techGroups" in project && project.techGroups ? (
+            <div className="flex flex-col gap-3 mb-4">
+              {project.techGroups.map((group) => (
+                <div key={group.label}>
+                  <span className="text-[0.58rem] text-[var(--color-text-tertiary)] uppercase tracking-widest mb-1.5 block">
+                    {group.label}
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.items.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[0.65rem] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {project.tech.map((t) => (
+                <span
+                  key={t}
+                  className="text-[0.65rem] px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </motion.div>
     </motion.div>

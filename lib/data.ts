@@ -36,6 +36,27 @@ export const PROJECTS = [
   },
   {
     id: 2,
+    name: "Sudoku",
+    tagline: "puzzle game ",
+    logo: "/sudoku.png",
+    platforms: ["Web", "Android"],
+    images: undefined as string[] | undefined,
+    video: undefined as string | undefined,
+    desc: "Sudoku game for Web and Android with multiple difficulty levels, daily challenges, achievements.\n\nSkia canvas renders the 9×9 grid instead of React Native Views, GPU-accelerated drawing with zero layout overhead per cell tap.\n\nPuzzle generation moved off-device to a pre-built JSON bank, cutting cold-start from 3–11 s to near-instant. MMKV replaces AsyncStorage for persistence, synchronous reads, ~10× faster.\n\nMonetised with AdMob.",
+    tech: ["React Native 0.85", "Expo SDK 56", "TypeScript", "Expo Router", "Zustand", "MMKV", "Skia Canvas", "Reanimated 4", "Gesture Handler", "AdMob", "EAS Build"],
+    techGroups: [
+      { label: "Platform", items: ["React Native", "Expo SDK 56", "TypeScript", "React 19", "Expo Router"] },
+      { label: "State & Storage", items: ["Zustand", "react-native-mmkv"] },
+      { label: "UI & Animation", items: ["Skia Canvas (GPU rendering)", "Reanimated 4", "Gesture Handler", "Expo Haptics", "Expo Audio"] },
+      { label: "Monetisation", items: ["AdMob (react-native-google-mobile-ads)"] },
+    ],
+    year: "2025",
+    gh: "#",
+    live: "https://soduko-five.vercel.app/",
+    mobile: "https://expo.dev/accounts/binisha9/projects/sudoku/builds/44de5f3a-d654-461a-9322-6562805fa1d3",
+  },
+  {
+    id: 3,
     name: "Linear App Clone",
     tagline: "Faithful recreation of Linear's landing page",
     logo: "/linearlogo.png",
@@ -45,6 +66,7 @@ export const PROJECTS = [
     gh: "#",
     live: "https://linearclonebini.netlify.app/",
   },
+ 
 ];
 
 export const EXPERIENCES = [

@@ -43,7 +43,7 @@ export const PROJECTS = [
     images: undefined as string[] | undefined,
     video: undefined as string | undefined,
     desc: "Sudoku game for Web and Android with multiple difficulty levels, daily challenges, achievements.\n\nSkia canvas renders the 9×9 grid instead of React Native Views, GPU-accelerated drawing with zero layout overhead per cell tap.\n\nPuzzle generation moved off-device to a pre-built JSON bank, cutting cold-start from 3–11 s to near-instant. MMKV replaces AsyncStorage for persistence, synchronous reads, ~10× faster.\n\nMonetised with AdMob.",
-    tech: ["React Native 0.85", "Expo SDK 56", "TypeScript", "Expo Router", "Zustand", "MMKV", "Skia Canvas", "Reanimated 4", "Gesture Handler", "AdMob", "EAS Build"],
+    tech: ["React Native", "TypeScript", "Expo Router", "Zustand", "MMKV", "Skia Canvas", "Reanimated 4", "Gesture Handler", "AdMob"],
     techGroups: [
       { label: "Platform", items: ["React Native", "Expo SDK 56", "TypeScript", "React 19", "Expo Router"] },
       { label: "State & Storage", items: ["Zustand", "react-native-mmkv"] },
@@ -57,6 +57,17 @@ export const PROJECTS = [
   },
   {
     id: 3,
+    name: "Chess",
+    tagline: "Cross-platform chess app with AI & multiplayer",
+    logo: "/chess.png",
+    desc: "Cross-platform chess app built from a single codebase with all game logic, UI, and animations shared across platforms. Implemented 4 game modes: local pass-and-play with Fischer clocks, vs AI with 8 difficulty levels (powered by on-device Stockfish engine via native FFI reaching ~400 Elo), 29-lesson interactive learn mode, and real-time online multiplayer.\n\nDesigned serverless AWS backend: AppSync GraphQL + WebSocket subscriptions, 14 Lambda functions for server-authoritative move validation, DynamoDB, and Cognito guest auth. Implemented optimistic UI for online moves with server reconciliation and clean rollback on rejection.\n\nBuilt full in-game action suite: resign, draw offers, takeback requests, and rematch. Added in-game coach with real-time eval bar, blunder detection, hints, and post-game per-move quality grading with accuracy score. Wrote 50+ unit tests covering game logic and online state machine using in-memory fakes.",
+    tech: ["Flutter", "Dart", "AWS AppSync", "AWS Lambda", "DynamoDB", "Cognito", "Riverpod", "Stockfish", "WebSocket"],
+    year: "2024",
+    gh: "#",
+    live: "https://main.d1gvdb6tl6ncy7.amplifyapp.com/",
+  },
+  {
+    id: 4,
     name: "Linear App Clone",
     tagline: "Faithful recreation of Linear's landing page",
     logo: "/linearlogo.png",
@@ -66,7 +77,8 @@ export const PROJECTS = [
     gh: "#",
     live: "https://linearclonebini.netlify.app/",
   },
- 
+  
+
 ];
 
 export const EXPERIENCES = [
